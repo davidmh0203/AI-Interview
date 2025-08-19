@@ -24,7 +24,7 @@ import { Card } from "./ui/card.jsx";
 import { Badge } from "./ui/badge.jsx";
 import { Progress } from "./ui/progress.jsx";
 
-// 모의 성과 데이터
+// 모의 성과 데이터 (실서비스에서는 API 응답으로 대체)
 const performanceData = [
   { skill: "의사소통", score: 85 },
   { skill: "전문성", score: 78 },
@@ -41,9 +41,9 @@ const feedback = [
     color: "#16A34A",
     bgColor: "#ECFDF5",
     items: [
-      "명확하고 자신감 있는 의사소통 스타일",
-      "과거 경험을 잘 활용한 구체적인 답변",
-      "직무에 대한 진정성 있는 열정 표현",
+      "명확하고 자신감 있는 의사소통",
+      "과거 경험을 잘 활용한 구체적 답변",
+      "직무에 대한 진정성 있는 열정",
     ],
   },
   {
@@ -52,9 +52,9 @@ const feedback = [
     color: "#EA580C",
     bgColor: "#FFF7ED",
     items: [
-      "기술적 세부사항을 더 구체적으로 설명할 필요",
-      "STAR 기법을 활용한 답변 구조화 권장",
-      "음성 채움어 사용 빈도 줄이기",
+      "기술적 세부사항을 더 구체적으로",
+      "STAR 기법으로 답변 구조화",
+      "채움어 사용 빈도 줄이기",
     ],
   },
   {
@@ -63,9 +63,9 @@ const feedback = [
     color: "#2563EB",
     bgColor: "#EFF6FF",
     items: [
-      "기술 개념을 쉽게 설명하는 연습하기",
-      "2-3개의 상세한 프로젝트 사례 미리 준비",
-      "지원 회사의 최근 동향 사전 조사",
+      "기술 개념 쉽게 설명 연습",
+      "2-3개 프로젝트 사례 미리 준비",
+      "지원 회사 최근 동향 조사",
     ],
   },
 ];
@@ -94,7 +94,12 @@ const RadarChart = ({ data, size = 240, max = 100, levels = 4 }) => {
     .join(" ");
 
   return (
-    <Svg width="100%" height={size} viewBox={`0 0 ${size} ${size}`}>
+    <Svg
+      width="100%"
+      height={size}
+      viewBox={`0 0 ${size} ${size}`}
+      accessibilityLabel="성과 레이더 차트"
+    >
       <G>
         {/* 그리드 원 (levels) */}
         {Array.from({ length: levels }).map((_, idx) => {
@@ -202,7 +207,7 @@ export function ResultScreen({ interviewData, onRestart }) {
           {/* 전체 점수 */}
           <Card className="p-0 overflow-hidden">
             <LinearGradient
-              colors={["#030213", "#7C3AED"]} // primary → purple 계열
+              colors={["#030213", "#7C3AED"]}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 1 }}
               className="p-6 items-center"
@@ -312,6 +317,7 @@ export function ResultScreen({ interviewData, onRestart }) {
               onPress={onRestart}
               className="w-full h-12 bg-primary"
               accessibilityLabel="다시 면접 연습하기"
+              testID="restart-interview"
             >
               <View className="flex-row items-center justify-center">
                 <RotateCcw size={18} color="#fff" />
@@ -324,6 +330,7 @@ export function ResultScreen({ interviewData, onRestart }) {
               className="w-full"
               accessibilityLabel="결과 공유하기"
               onPress={handleShare}
+              testID="share-result"
             >
               <View className="flex-row items-center justify-center">
                 <ShareIcon size={18} />

@@ -7,7 +7,6 @@ import { Input } from "./ui/input.jsx";
 import { Badge } from "./ui/badge.jsx";
 import { Card } from "./ui/card.jsx";
 
-// 더미 데이터
 const dummyJobs = [
   {
     id: 1,
@@ -76,7 +75,6 @@ export function JobListScreen({ onJobSelect, onNavigate }) {
   const [showFilter, setShowFilter] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  // 필터링
   const filteredJobs = dummyJobs.filter((job) => {
     const q = searchQuery.trim().toLowerCase();
     const matchesSearch =
@@ -111,7 +109,6 @@ export function JobListScreen({ onJobSelect, onNavigate }) {
     onNavigate?.("jobDetail");
   };
 
-  // 스켈레톤
   const SkeletonCard = () => (
     <Card className="p-4 animate-pulse">
       <View className="gap-3">
@@ -126,7 +123,6 @@ export function JobListScreen({ onJobSelect, onNavigate }) {
     </Card>
   );
 
-  // 빈 상태
   const EmptyState = () => (
     <View className="items-center justify-center py-16 px-4">
       <View className="w-16 h-16 bg-muted rounded-full items-center justify-center mb-4">
@@ -153,14 +149,11 @@ export function JobListScreen({ onJobSelect, onNavigate }) {
 
   return (
     <SafeAreaView className="flex-1 bg-background">
-      {/* sticky header를 ScrollView 첫 child로 두고 고정 */}
       <ScrollView
         stickyHeaderIndices={[0]}
         contentContainerStyle={{ paddingBottom: 24 }}
       >
-        {/* AppBar + 검색/필터 (sticky) */}
         <View className="bg-card border-b shadow-sm">
-          {/* AppBar */}
           <View className="flex-row items-center justify-between p-4">
             <Text className="text-2xl font-bold text-foreground">채용공고</Text>
             <View className="flex-row items-center gap-2">
@@ -202,10 +195,8 @@ export function JobListScreen({ onJobSelect, onNavigate }) {
             </View>
           </View>
 
-          {/* Filter chips */}
           {showFilter && (
             <View className="px-4 pb-4 border-t bg-muted/30">
-              {/* 직무별 */}
               <View className="pt-3">
                 <Text className="text-sm font-medium text-foreground/80 mb-2">
                   직무별
@@ -238,7 +229,6 @@ export function JobListScreen({ onJobSelect, onNavigate }) {
                 </View>
               </View>
 
-              {/* 지역별 */}
               <View className="mt-3">
                 <Text className="text-sm font-medium text-foreground/80 mb-2">
                   지역별
@@ -286,7 +276,6 @@ export function JobListScreen({ onJobSelect, onNavigate }) {
           )}
         </View>
 
-        {/* 목록 */}
         <View className="p-4 gap-4">
           {isLoading ? (
             <>
@@ -307,15 +296,12 @@ export function JobListScreen({ onJobSelect, onNavigate }) {
               >
                 <Card className="p-4">
                   <View className="gap-3">
-                    {/* 공고명 */}
                     <Text className="font-semibold text-foreground">
                       {job.title}
                     </Text>
-                    {/* 회사명 · 지역 · 경력 */}
                     <Text className="text-sm text-foreground/60">
                       {job.company} · {job.location} · {job.experience}
                     </Text>
-                    {/* 태그 */}
                     <View className="flex-row flex-wrap gap-2">
                       {job.tags.map((tag, idx) => (
                         <Badge
@@ -327,7 +313,6 @@ export function JobListScreen({ onJobSelect, onNavigate }) {
                         </Badge>
                       ))}
                     </View>
-                    {/* 마감일 + 화살표 */}
                     <View className="flex-row items-center justify-between">
                       <Text className="text-sm text-foreground/60">
                         {job.deadline}

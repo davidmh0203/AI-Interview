@@ -21,7 +21,7 @@ export function MainScreen({
 }) {
   return (
     <LinearGradient
-      colors={["#eff6ff", "#e0e7ff"]} // from-blue-50 -> to-indigo-100 근사값
+      colors={["#eff6ff", "#e0e7ff"]}
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 1 }}
       className="flex-1 p-6"
@@ -45,8 +45,8 @@ export function MainScreen({
           AI 모의면접
         </Text>
         <Text className="text-base text-muted-foreground text-center leading-6 self-center w-4/5">
-          AI가 제공하는 맞춤형 면접 연습으로 당신의 꿈의 직장에 한 걸음 더
-          가까이
+          AI가 제공하는 맞춤형 면접 연습으로 꿈의 직장에 한 걸음 더 가까이
+          다가가세요
         </Text>
       </View>
 
@@ -62,7 +62,7 @@ export function MainScreen({
                 실전 면접 연습
               </Text>
               <Text className="text-sm text-muted-foreground">
-                직무에 맞춤화된 실제 면접 질문
+                직무 맞춤형 실제 면접 질문 제공
               </Text>
             </View>
           </View>
@@ -78,7 +78,7 @@ export function MainScreen({
                 즉시 피드백
               </Text>
               <Text className="text-sm text-muted-foreground">
-                면접 후 즉시 상세한 성과 분석 제공
+                면접 후 즉시 상세한 성과 분석
               </Text>
             </View>
           </View>
@@ -94,14 +94,14 @@ export function MainScreen({
                 실력 향상
               </Text>
               <Text className="text-sm text-muted-foreground">
-                면접 자신감과 스킬을 동시에 키우기
+                자신감과 면접 스킬을 동시에 향상
               </Text>
             </View>
           </View>
         </Card>
       </View>
 
-      {/* 시작 버튼 */}
+      {/* CTA 버튼 영역 */}
       <View className="mt-auto space-y-3">
         <Button
           onPress={onNavigateToProfile}
@@ -130,7 +130,7 @@ export function MainScreen({
         <Button
           onPress={onStartInterview}
           className="w-full h-14 bg-primary"
-          accessibilityLabel="면접 시작하기"
+          accessibilityLabel="직접 모의면접 시작"
         >
           <View className="flex-row items-center justify-center">
             <Play size={20} color="#ffffff" />
@@ -141,7 +141,7 @@ export function MainScreen({
         </Button>
 
         <Text className="text-center text-sm text-muted-foreground mt-4">
-          약 10-15분 소요됩니다
+          예상 소요 시간: 약 10~15분
         </Text>
       </View>
     </LinearGradient>

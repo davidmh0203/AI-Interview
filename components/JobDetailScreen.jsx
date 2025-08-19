@@ -24,7 +24,7 @@ export function JobDetailScreen({ selectedJob, onBack, onStartInterview }) {
     );
   }
 
-  // 더미 상세 데이터
+  // 더미 상세 데이터 (실제 서비스에서는 API 응답으로 교체)
   const jobDetail = {
     ...selectedJob,
     description: {
@@ -77,10 +77,9 @@ export function JobDetailScreen({ selectedJob, onBack, onStartInterview }) {
     setTimeout(() => {
       onStartInterview?.(selectedJob);
       setIsLoading(false);
-    }, 1000);
+    }, 600); // UX: 빠른 피드백
   };
 
-  // 스켈레톤 로딩 컴포넌트
   const SkeletonSection = () => (
     <Card className="p-6 animate-pulse">
       <View className="gap-4">
@@ -97,7 +96,6 @@ export function JobDetailScreen({ selectedJob, onBack, onStartInterview }) {
   if (isLoading) {
     return (
       <SafeAreaView className="flex-1 bg-background">
-        {/* 헤더 */}
         <View className="border-b bg-card">
           <View className="flex-row items-center p-4">
             <Button
@@ -115,7 +113,6 @@ export function JobDetailScreen({ selectedJob, onBack, onStartInterview }) {
           </View>
         </View>
 
-        {/* 콘텐츠 */}
         <ScrollView contentContainerStyle={{ padding: 16 }}>
           <View className="gap-6">
             <SkeletonSection />
@@ -129,12 +126,11 @@ export function JobDetailScreen({ selectedJob, onBack, onStartInterview }) {
 
   return (
     <SafeAreaView className="flex-1 bg-background">
-      {/* sticky header를 ScrollView의 첫 child로 두고 stickyHeaderIndices 사용 */}
       <ScrollView
         stickyHeaderIndices={[0]}
         contentContainerStyle={{ paddingBottom: 120 }}
       >
-        {/* Header (sticky) */}
+        {/* 상단 헤더 */}
         <View className="bg-card border-b shadow-sm">
           <View className="flex-row items-center p-4">
             <Button
@@ -152,12 +148,10 @@ export function JobDetailScreen({ selectedJob, onBack, onStartInterview }) {
           </View>
         </View>
 
-        {/* 본문 */}
         <View style={{ maxWidth: 480, alignSelf: "center", width: "100%" }}>
-          {/* Header 섹션 */}
+          {/* 공고 요약 */}
           <View className="p-6 bg-card border-b">
             <View className="gap-4">
-              {/* 공고명 + 원문 보기 */}
               <View className="flex-row items-start justify-between">
                 <View className="flex-1 pr-4">
                   <Text className="text-xl font-bold text-foreground mb-2">
@@ -173,8 +167,7 @@ export function JobDetailScreen({ selectedJob, onBack, onStartInterview }) {
                   className="ml-2"
                   accessibilityLabel={`원문 보기: ${jobDetail.company} 공고`}
                   onPress={() => {
-                    // 선택적으로 selectedJob.url이 있다면 WebBrowser.openBrowserAsync(url) 사용 가능
-                    // import * as WebBrowser from 'expo-web-browser';
+                    // TODO: WebBrowser.openBrowserAsync(jobDetail.url)
                   }}
                 >
                   <View className="flex-row items-center gap-2">
@@ -184,7 +177,6 @@ export function JobDetailScreen({ selectedJob, onBack, onStartInterview }) {
                 </Button>
               </View>
 
-              {/* 정보 태그 */}
               <View className="flex-row flex-wrap gap-2">
                 {!!jobDetail.location && (
                   <Badge variant="secondary">{jobDetail.location}</Badge>
@@ -203,7 +195,6 @@ export function JobDetailScreen({ selectedJob, onBack, onStartInterview }) {
           <Card className="m-4 p-6">
             <Text className="text-lg font-semibold mb-4">모집요강</Text>
 
-            {/* 담당업무 */}
             <View className="mb-6">
               <Text className="font-medium text-foreground mb-3">담당업무</Text>
               <View className="gap-2">
@@ -216,15 +207,13 @@ export function JobDetailScreen({ selectedJob, onBack, onStartInterview }) {
               </View>
             </View>
 
-            {/* 자격요건 */}
             <View className="mb-6">
               <Text className="font-medium text-foreground mb-3">자격요건</Text>
 
-              {/* 필수 */}
               <View className="mb-4">
                 <Text
-                  className="text-sm font-medium"
-                  style={{ color: "#2563EB", marginBottom: 8 }}
+                  className="text-sm font-medium mb-2"
+                  style={{ color: "#2563EB" }}
                 >
                   필수
                 </Text>
@@ -243,11 +232,10 @@ export function JobDetailScreen({ selectedJob, onBack, onStartInterview }) {
                 </View>
               </View>
 
-              {/* 우대 */}
               <View>
                 <Text
-                  className="text-sm font-medium"
-                  style={{ color: "#16A34A", marginBottom: 8 }}
+                  className="text-sm font-medium mb-2"
+                  style={{ color: "#16A34A" }}
                 >
                   우대
                 </Text>
@@ -267,12 +255,11 @@ export function JobDetailScreen({ selectedJob, onBack, onStartInterview }) {
               </View>
             </View>
 
-            {/* 기술스택 */}
             <View>
               <Text className="font-medium text-foreground mb-3">기술스택</Text>
               <View className="flex-row flex-wrap gap-2">
                 {jobDetail.description.techStack.map((tech, idx) => (
-                  <Badge key={idx} variant="outline" className="text-sm">
+                  <Badge key={idx} variant="outline">
                     {tech}
                   </Badge>
                 ))}
@@ -283,15 +270,12 @@ export function JobDetailScreen({ selectedJob, onBack, onStartInterview }) {
           {/* 전형절차 */}
           <Card className="m-4 p-6">
             <Text className="text-lg font-semibold mb-4">전형절차</Text>
-
-            {/* 수평 타임라인 */}
             <View className="relative flex-row items-center justify-between">
-              {/* 연결선 (회색) */}
               <View className="absolute left-6 right-6 top-6 h-0.5 bg-muted" />
-              {jobDetail.description.process.map((item, index) => (
-                <View key={index} className="items-center">
+              {jobDetail.description.process.map((item, idx) => (
+                <View key={idx} className="items-center">
                   <View
-                    className={`w-12 h-12 rounded-full items-center justify-center text-sm font-medium ${
+                    className={`w-12 h-12 rounded-full items-center justify-center ${
                       item.status === "active" ? "bg-primary" : "bg-muted"
                     }`}
                   >
@@ -302,7 +286,7 @@ export function JobDetailScreen({ selectedJob, onBack, onStartInterview }) {
                           : "text-foreground/60"
                       }`}
                     >
-                      {index + 1}
+                      {idx + 1}
                     </Text>
                   </View>
                   <Text className="mt-2 text-sm text-foreground text-center">
@@ -316,7 +300,6 @@ export function JobDetailScreen({ selectedJob, onBack, onStartInterview }) {
           {/* 근무조건 */}
           <Card className="m-4 p-6">
             <Text className="text-lg font-semibold mb-4">근무조건</Text>
-
             <View className="gap-3">
               <View className="flex-row">
                 <Text className="w-20 text-sm font-medium text-foreground/60">
@@ -355,7 +338,7 @@ export function JobDetailScreen({ selectedJob, onBack, onStartInterview }) {
         </View>
       </ScrollView>
 
-      {/* CTA 고정 바 */}
+      {/* CTA 바 */}
       <View className="absolute bottom-0 left-0 right-0 bg-card border-t p-4">
         <View style={{ maxWidth: 480, alignSelf: "center", width: "100%" }}>
           <View className="bg-primary/10 border border-primary/20 rounded-lg p-3 mb-3">
