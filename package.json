@@ -1,0 +1,29 @@
+{
+  "name": "job-express-test",
+  "version": "1.0.0",
+  "main": "expo/AppEntry.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "axios": "^1.11.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "expo-linear-gradient": "~14.1.5",
+    "express": "^5.1.0",
+    "lucide-react-native": "^0.540.0",
+    "metro": "^0.82.5",
+    "metro-config": "^0.82.5",
+    "metro-resolver": "^0.82.5",
+    "react-native-svg": "15.11.2",
+    "xml2js": "^0.6.2",
+    "zod": "^4.0.16"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
